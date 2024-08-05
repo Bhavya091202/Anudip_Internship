@@ -1,0 +1,269 @@
+# Lab1: Suppose you are a teacher, and you want to analyze the exam scores of your students in a particular subject. You have recorded the scores of your students for a recent exam, and you want to represent this data using a Pandas Series.
+
+import pandas as pd
+# Input:
+students = ['Alice', 'Bob', 'Charlie', 'David', 'Eve', 'Frank', 'Grace', 'Hannah', 'Ivy', 'Jack']
+exam_scores = [92, 88, 76, 94, 82, 90, 85, 89, 78, 91]
+
+exam_scores_series = pd.Series(exam_scores, index=students, name='Exam Scores')
+exam_scores_series
+
+# Lab2: Suppose you want to track and analyze your household expenses for a month. You have recorded the expenses for various categories, such as groceries, utilities, rent, transportation, and entertainment. You can represent this expense data using a Pandas Series.
+import pandas as pd
+# Input:
+# Expense categories
+categories = ['Groceries', 'Utilities', 'Rent', 'Transportation', 'Entertainment']
+# Monthly expense data (example data in USD)
+expenses = [500, 200, 1200, 300, 150]
+expenses_series = pd.Series(expenses, index=categories, name='Monthly Expenses')
+expenses_series
+
+# Lab3: Suppose you want to track and analyze the monthly energy consumption in your home. You have recorded the monthly energy usage for electricity and gas over a year, and you want to represent this data using Pandas Series.
+import pandas as pd
+# Input:
+# Months in a year
+months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+# Monthly energy consumption data (example data in kilowatt-hours for electricity and therms for gas)
+electricity_usage = [350, 320, 310, 330, 340, 370, 380, 360, 350, 330, 320, 330]
+gas_usage = [20, 18, 16, 15, 12, 10, 8, 9, 12, 15, 17, 19]
+electricity_series = pd.Series(electricity_usage, index=months, name='Electricity Usage (kWh)')
+gas_series = pd.Series(gas_usage, index=months, name="Gas Usage (therms)")    
+print("Electricity Usage:")
+print(electricity_series)
+print("\nGas Usage:")
+print(gas_series)
+
+# Lab4:Suppose you are managing a website and want to analyze the monthly revenue generated from advertising. You have recorded the monthly revenue for the past year, and you want to represent this data using a Pandas Series.
+import pandas as pd
+# Input:
+# Months in a year
+months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+# Monthly advertising revenue data (example data in USD)
+revenue = [5000, 5200, 4800, 5400, 5600, 5800, 6100, 5900, 6200, 6500, 7000, 6900]
+revenue_series = pd.Series(revenue, index=months, name='Monthly Advertising Revenue (USD)')
+revenue_series
+
+-----------------------------------------------------------------------------------------------------------------------------
+ChatGPT Exercise
+
+# Hi! I have two columns with some dummy value. I want to create a line plot of the opening, closing stock prices of SBI between two specific dates using a pandas plot.Can you generate a complete code for me?
+# After generating the code using chatgpt, run the code, display the output and give your conclusion.
+
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Sample data (replace with your actual data)
+data = {
+    'Date': ['2024-01-01', '2024-01-02', '2024-01-03', '2024-01-04', '2024-01-05'],
+    'SBI_Open': [300, 305, 310, 308, 312],
+    'SBI_Close': [302, 303, 309, 307, 311]
+}
+
+# Convert 'Date' column to datetime format
+df = pd.DataFrame(data)
+df['Date'] = pd.to_datetime(df['Date'])
+
+# Filter data between two specific dates
+start_date = '2024-01-01'
+end_date = '2024-01-05'
+mask = (df['Date'] >= start_date) & (df['Date'] <= end_date)
+filtered_data = df.loc[mask]
+
+# Plotting
+plt.figure(figsize=(10, 6))
+plt.plot(filtered_data['Date'], filtered_data['SBI_Open'], marker='o', linestyle='-', color='b', label='SBI Open')
+plt.plot(filtered_data['Date'], filtered_data['SBI_Close'], marker='o', linestyle='-', color='g', label='SBI Close')
+
+# Add labels and title
+plt.xlabel('Date')
+plt.ylabel('Stock Price')
+plt.title('SBI Stock Prices between {} and {}'.format(start_date, end_date))
+plt.legend()
+
+# Display plot
+plt.grid(True)
+plt.tight_layout()
+plt.show()
+
+# Conclusion:
+#   The plot shows that the opening and closing prices of SBI stock were generally close to each other each day.
+#   There is a slight increase in the stock prices over the given period, indicating a positive trend.
+#   The opening prices are represented by the blue line, and the closing prices are represented by the green line.
+
+-----------------------------------------------------------------------------------------------------------------------------
+ChatGPT Exercise
+
+# Scenario: Analyzing Stock Prices
+# Suppose you are an investor interested in analyzing the stock prices of a particular company over a year. You have collected daily closing prices for that company's stock, and you want to perform some analysis like Calculate the average daily return,Find the date with the highest closing price and also generate a line chart using Pandas Series.
+# Further, you need to get some inference out of the chart.
+# Create a ChatGPT prompt to generate the code for this scenario. Based on the code generated, ask ChatGPT to give the conclusion/inference.
+# Note. You can provide the data to ChatGPT in the form of a list or dictionary or ask it to use sample data.
+
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Sample data
+data = {
+    'Date': ['2023-01-01', '2023-01-02', '2023-01-03', '2023-01-04', '2023-01-05', 
+             '2023-01-06','2023-01-07', '2023-01-08', '2023-01-09', '2023-01-10'
+            ],
+    'Close': [150, 152, 149, 153, 155, 154, 156, 157, 158, 160]
+}
+
+# Create DataFrame
+df = pd.DataFrame(data)
+df['Date'] = pd.to_datetime(df['Date'])
+df.set_index('Date', inplace=True)
+
+# Calculate daily returns
+df['Daily Return'] = df['Close'].pct_change()
+
+# Calculate average daily return
+average_daily_return = df['Daily Return'].mean()
+
+# Find the date with the highest closing price
+max_close_date = df['Close'].idxmax()
+max_close_price = df['Close'].max()
+
+# Generate line chart
+plt.figure(figsize=(10, 6))
+df['Close'].plot(marker='o', linestyle='-')
+plt.title('Daily Closing Prices')
+plt.xlabel('Date')
+plt.ylabel('Closing Price')
+plt.grid(True)
+plt.tight_layout()
+plt.show()
+
+# Print the results
+print("Average Daily Return: {:.4f}".format(average_daily_return))
+print("Date with Highest Closing Price: {}".format(max_close_date.date()))
+print("Highest Closing Price: {:.2f}".format(max_close_price))
+
+# Conclusion/Inference:
+# The stock price exhibited a positive trend over the analyzed period, suggesting potential growth.
+# The highest closing price towards the end of the period may indicate increasing investor confidence or positive market factors.
+# The average daily return being positive further reinforces the overall growth observed in the stock price.
+-----------------------------------------------------------------------------------------------------------------------------
+Assignment:
+
+# Lab1: Write a Pandas program to create a dataframe from a dictionary and display it.
+# Sample data:
+score = {
+    'Math':[78,85,96,80,86], 
+    'English':[84,94,89,83,86],
+    'Hindi':[86,97,96,72,83]
+}
+
+score_df = pd.DataFrame(score)
+score_df
+
+# Lab2: Write a Pandas program to create and display a DataFrame from a specified dictionary data which has the index labels. Sample Python dictionary data and list labels:
+
+import pandas as pd
+import numpy as np
+
+exam_data = {
+    'name': ['Anastasia', 'Dima', 'Katherine', 'James', 'Emily', 'Michael', 'Matthew', 'Laura', 'Kevin', 'Jonas'],
+    'score': [12.5, 9, 16.5, np.nan, 9, 20, 14.5, np.nan, 8, 19],
+    'attempts': [1, 3, 2, 3, 2, 3, 1, 1, 2, 1],
+    'qualify': ['yes', 'no', 'yes', 'no', 'no', 'yes', 'yes', 'no', 'no', 'yes']
+}
+
+exam_data_df == pd.DataFrame(exam_data)
+exam_data_df
+
+# Lab3: Write a Pandas program to get the first 3 rows of a given DataFrame. Sample DataFrame:
+exam_data = {
+    'name': ['Anastasia', 'Dima', 'Katherine', 'James', 'Emily', 'Michael', 'Matthew', 'Laura', 'Kevin', 'Jonas'],
+    'score': [12.5, 9, 16.5, np.nan, 9, 20, 14.5, np.nan, 8, 19],
+    'attempts': [1, 3, 2, 3, 2, 3, 1, 1, 2, 1],
+    'qualify': ['yes', 'no', 'yes', 'no', 'no', 'yes', 'yes', 'no', 'no', 'yes']
+}
+
+exam_data_df = pd.DataFrame(exam_data)
+exam_data_df[0:3]
+
+# Lab4: Write a Pandas program to select the 'name' and 'score' columns from the following DataFrame. Sample Python dictionary data and list labels:
+exam_data = {
+    'name': ['Anastasia', 'Dima', 'Katherine', 'James', 'Emily', 'Michael', 'Matthew', 'Laura', 'Kevin', 'Jonas'],
+    'score': [12.5, 9, 16.5, np.nan, 9, 20, 14.5, np.nan, 8, 19],
+    'attempts': [1, 3, 2, 3, 2, 3, 1, 1, 2, 1],
+    'qualify': ['yes', 'no', 'yes', 'no', 'no', 'yes', 'yes', 'no', 'no', 'yes']
+}
+exam_data_df = pd.DataFrame(exam_data) # columns=['name', 'score'])
+print("Original Data", exam_data_df)
+print("Select specific columns:")
+exam_data_df[['name', 'score']]
+
+-----------------------------------------------------------------------------------------------------------------------------
+ChatGPT Exercise
+
+# Scenario: Analyzing Sales Data Suppose you work for a retail company, and you have a dummy dataset containing sales data for the past year. The data includes information such as customer names, product names, sales quantities, prices, and dates. You want to perform various data analysis tasks like Total revenue for the year,Average revenue per sale,Best-selling product,Date with the highest total revenue also wants to generate product and total sales wise barchart using Pandas DataFrames.
+# Further, you need to get some inference out of the chart.
+# Create a ChatGPT prompt to generate the code for this scenario. Based on the code generated, ask ChatGPT to give the conclusion/inference.
+# Note. You can provide the data to ChatGPT in the form of a list or dictionary or ask it to
+# use sample data.
+
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Sample data
+data = {
+    'Customer Name': ['Alice', 'Bob', 'Charlie', 'David', 'Eva'],
+    'Product Name': ['Product A', 'Product B', 'Product C', 'Product A', 'Product B'],
+    'Quantity': [10, 5, 3, 7, 4],
+    'Price': [100, 200, 150, 100, 200],
+    'Date': ['2023-01-01', '2023-02-01', '2023-03-01', '2023-04-01', '2023-05-01']
+}
+
+# Create DataFrame
+df = pd.DataFrame(data)
+df['Date'] = pd.to_datetime(df['Date'])
+
+# Calculate total revenue for each sale
+df['Revenue'] = df['Quantity'] * df['Price']
+
+# Calculate total revenue for the year
+total_revenue = df['Revenue'].sum()
+
+# Calculate average revenue per sale
+average_revenue_per_sale = df['Revenue'].mean()
+
+# Identify the best-selling product
+best_selling_product = df.groupby('Product Name')['Quantity'].sum().idxmax()
+
+# Find the date with the highest total revenue
+date_with_highest_revenue = df.groupby('Date')['Revenue'].sum().idxmax()
+
+# Generate bar chart for product-wise total sales
+product_sales = df.groupby('Product Name')['Revenue'].sum()
+product_sales.plot(kind='bar', figsize=(10, 6))
+plt.title('Product-wise Total Sales')
+plt.xlabel('Product Name')
+plt.ylabel('Total Revenue')
+plt.tight_layout()
+plt.show()
+
+# Generate bar chart for date-wise total sales
+date_sales = df.groupby('Date')['Revenue'].sum()
+date_sales.plot(kind='bar', figsize=(10, 6))
+plt.title('Date-wise Total Sales')
+plt.xlabel('Date')
+plt.ylabel('Total Revenue')
+plt.tight_layout()
+plt.show()
+
+# Print the results
+print("Total Revenue for the Year: {:.2f}".format(total_revenue))
+print("Average Revenue per Sale: {:.2f}".format(average_revenue_per_sale))
+print("Best-Selling Product: {}".format(best_selling_product))
+print("Date with Highest Total Revenue: {}".format(date_with_highest_revenue.date()))
+
+# Conclusion:
+# Product-wise Total Sales:
+# The bar chart shows the total revenue generated by each product. If Product A has the highest bar, it confirms it as the best-selling product.
+# Comparing the bars for different products helps identify which products are performing well and which might need more attention or promotional efforts.
+# Date-wise Total Sales:
+# The bar chart indicates the total revenue for each date in the dataset. The date with the highest bar confirms the date with the highest total revenue.
+# This visualization can reveal trends, such as consistent high-revenue periods or specific dates that significantly outperform others, which can guide marketing and sales strategies.

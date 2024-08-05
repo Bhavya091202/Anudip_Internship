@@ -1,0 +1,96 @@
+# Lab1: Write a Pandas program to detect missing values of a given DataFrame.
+import  pandas as pd 
+import numpy as np
+# Input:
+df = pd.DataFrame({
+    'ord_no':[70001, np.nan, 70002, 70004, np.nan, 70005, np.nan, 70010, 70003, 70012, np.nan, 70013],
+    'purch_amt':[150.5, 270.65, 65.26, 110.5, 948.5, 2400.6, 5760, 1983.43, 2480.4, 250.45, 75.29, 3045.6], 
+    'ord_date':['2012-10-05', '2012-09-10', np.nan, '2012-08-17', '2012-09-10', '2012-07-27', '2012-09-10', '2012-10-10', '2012-10-10', '2012-06-27', '2012-08-17', '2012-04-25'],
+    'customer_id':[3002 ,3001, 3001, 3003, 3002, 3001, 3001, 3004, 3003, 3002, 3001, 3001],
+    'salesman_id':[5002, 5003, 5001, np.nan, 5002, 5001, 5001, np.nan, 5003, 5002, 5003, np.nan]
+})
+print("Original Orders DataFrame:")
+print(df)
+print("\nMissing values of the said DataFrame:")
+print(df.isnull().sum())
+
+# Lab2: Write a Pandas program to drop the rows where at least one element is missing in a given DataFrame.
+import pandas as pd
+import numpy as np
+# Input:
+df = pd.DataFrame({
+    'ord_no':[70001, np.nan, 70002, 70004, np.nan, 70005, np.nan, 70010, 70003, 70012, np.nan, 70013],
+    'purch_amt':[150.5, 270.65, 65.26, 110.5, 948.5, 2400.6, 5760, 1983.43, 2480.4, 250.45, 75.29, 3045.6], 
+    'ord_date':['2012-10-05', '2012-09-10', np.nan, '2012-08-17', '2012-09-10', '2012-07-27', '2012-09-10', '2012-10-10', '2012-10-10', '2012-06-27', '2012-08-17', '2012-04-25'],
+    'customer_id':[3002 ,3001, 3001, 3003, 3002, 3001, 3001, 3004, 3003, 3002, 3001, 3001],
+    'salesman_id':[5002, 5003, 5001, np.nan, 5002, 5001, 5001, np.nan, 5003, 5002, 5003, np.nan]
+})
+print("Original Orders DataFrame:")
+print(df)
+
+print("\nDrop the rows where at least one element is missing:")
+df.dropna(inplace=True)
+print(df)
+
+# Lab3: Write a Pandas program to drop the rows where all elements are missing in a given DataFrame
+# Input:
+df = pd.DataFrame({
+    'ord_no':[70001, np.nan, 70002, 70004, np.nan, 70005, np.nan, 70010, 70003, 70012, np.nan, 70013],
+    'purch_amt':[150.5, 270.65, 65.26, 110.5, 948.5, 2400.6, 5760, 1983.43, 2480.4, 250.45, 75.29, 3045.6], 
+    'ord_date':['2012-10-05', '2012-09-10', np.nan, '2012-08-17', '2012-09-10', '2012-07-27', '2012-09-10', '2012-10-10', '2012-10-10', '2012-06-27', '2012-08-17', '2012-04-25'],
+    'customer_id':[3002 ,3001, 3001, 3003, 3002, 3001, 3001, 3004, 3003, 3002, 3001, 3001],
+    'salesman_id':[5002, 5003, 5001, np.nan, 5002, 5001, 5001, np.nan, 5003, 5002, 5003, np.nan]
+})
+print("Original Orders DataFrame:")
+print(df)
+
+print("\nDelete the rows where all elements are missing:")
+df.dropna(how='all', inplace=True)
+print(df)
+
+# Lab4: Write a Pandas program to drop those rows from a given DataFrame in which specific columns have missing values.
+# Input:
+df = pd.DataFrame({
+    'ord_no':[np.nan,np.nan,70002,np.nan,np.nan,70005,np.nan,70010,70003,70012,np.nan,np.nan],
+    'purch_amt':[np.nan,270.65,65.26,np.nan,948.5,2400.6,5760,1983.43,2480.4,250.45,75.29,np.nan],
+    'ord_date':[np.nan,'2012-09-10',np.nan,np.nan,'2012-09-10','2012-07-27','2012-09-10','2012-10-10','2012-10-10','2012-06-27','2012-08-17',np.nan],
+    'customer_id':[np.nan,3001,3001,np.nan,3002,3001,3001,3004,3003,3002,3001,np.nan]
+})
+
+print("Original Orders DataFrame:")
+print(df)
+
+print("\nDrop rows where ord_no are with missing values:")
+df.dropna(subset=['ord_no'], inplace=True)
+print(df)
+
+# ChatGPT Exercise
+# Scenario:Analyzing Real Estate Data
+# Suppose you have a dummy dataset with real estate property listings. The data contains information about property prices, square footage, the number of bedrooms and bathrooms, and other details. You want to perform data cleaning like Remove rows with missing values, Remove duplicate and then save the cleaned data to a CSV file. Create a ChatGPT prompt to generate the code for this scenario. Based on the code generated, ask ChatGPT to give the conclusion/inference.
+# Note. You can provide the data to ChatGPT in the form of a list or dictionary or ask it to use sample data.
+
+import pandas as pd
+
+# Load the dataset
+df = pd.read_csv('real_estate_data.csv')
+
+# Remove rows with missing values
+df_cleaned = df.dropna()
+
+# Remove duplicate rows
+df_cleaned = df_cleaned.drop_duplicates()
+
+# Save the cleaned data to a CSV file
+df_cleaned.to_csv('cleaned_real_estate_data.csv', index=False)
+
+print("Data cleaning complete. The cleaned data has been saved to 'cleaned_real_estate_data.csv'.")
+
+# Conclusions 
+1. Price: Average price, minimum, and maximum values give an idea of the price range in the dataset.
+2. Square Footage: Provides insight into the typical size of properties listed.
+3. Missing Values:If missing values were present initially, they should now be zero. If there are still missing values, it indicates that some rows might have been missed during the cleaning process.
+4. Duplicates:The number of duplicates should be zero if the cleaning process was successful. Any remaining duplicates would need further attention.
+5. Data Distribution:
+    i.  Price Distribution: A histogram shows the spread of property prices. Skewness might indicate whether the data is concentrated in a specific price range.
+    ii. Square Footage Distribution: Helps understand the common sizes of properties.
+6. Correlation Analysis:The correlation matrix helps identify relationships between variables, such as whether larger properties tend to have higher prices or if more bedrooms are associated with more bathrooms.
