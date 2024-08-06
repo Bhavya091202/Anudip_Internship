@@ -1,0 +1,144 @@
+# Lab1: Write a Pandas program to split the following data frame into groups based on Class and count the number of students in that particular class.Also generate a bar chart based on the result and explain the conclusion.
+import pandas as pd
+# Input:
+student_data = pd.DataFrame({
+    'school_code': ['s001','s002','s003','s001','s002','s004'],
+    'class': ['V', 'VI', 'VI', 'VI', 'V', 'VI'],
+    'name': ['Alberto Franco','Gino Mcneill','Ryan Parkes', 'Eesha Hinton', 'Gino Mcneill', 'David Parkes'],
+    'age': [12, 12, 13, 13, 14, 12],
+    'height': [173, 192, 186, 167, 151, 159],
+    'weight': [35, 32, 33, 30, 31, 32],
+    'address': ['street1', 'street2', 'street3', 'street1', 'street2', 'street4']
+})
+# Output:
+print("Original DataFrame:")
+print(student_data)
+print('\nClasswise Number of Students Count:')
+group = student_data[['class']].groupby(['class']).size()
+print(group)
+group.plot(kind='bar')
+
+# Lab2: Write a Pandas program to split the following dataframe by school code and get mean, min, and max value of age for each school. Also generate a horizontal bar chart based on the result and explain the conclusion.
+# Input:
+student_data = pd.DataFrame({
+    'school_code': ['s001','s002','s003','s001','s002','s004'],
+    'class': ['V', 'V', 'VI', 'VI', 'V', 'VI'],
+    'name': ['Alberto Franco','Gino Mcneill','Ryan Parkes', 'Eesha Hinton', 'Gino Mcneill', 'David Parkes'],
+    'age': [12, 12, 13, 13, 14, 12],
+    'height': [173, 192, 186, 167, 151, 159],
+    'weight': [35, 32, 33, 30, 31, 32],
+    'address': ['street1', 'street2', 'street3', 'street1', 'street2', 'street4']
+})
+# Output:
+print("Original DataFrame:")
+print(student_data)
+calc = student_data.groupby(['school_code'])['age'].agg(['mean','min','max'])
+print("\nMean, Min, and Max values of age for each value of the school:")
+print(calc)
+calc.plot(kind='barh', figsize=(10, 5))
+
+# Lab3: Write a Pandas program to split a dataset, group by one column and get mean, min, and max values by group. Using the following dataset find the mean, min, and max values of purchase amount (purch_amt) group by customer id (customer_id).Also generate a line chart based on the result and explain the conclusion.
+# Input:
+orders_data = pd.DataFrame({
+    'ord_no':[70001,70009,70002,70004,70007,70005,70008,70010,70003,70012,70011,70013],
+    'purch_amt':[150.5,270.65,65.26,110.5,948.5,2400.6,5760,1983.43,2480.4,250.45,75.29,3045.6],
+    'ord_date':['2012-10-05','2012-09-10','2012-10-05','2012-08-17','2012-09-10','2012-07-27','2012-09-10','2012-10-10','2012-10-10','2012-06-27','2012-08-17','2012-04-25'],
+    'customer_id':[3005,3001,3002,3009,3005,3007,3002,3004,3009,3008,3003,3002],
+    'salesman_id': [5002,5005,5001,5003,5002,5001,5001,5006,5003,5002,5007,5001]
+})
+# Output:
+print("Original DataFrame:")
+print(orders_data)
+print("\nMonthly purchase amount:")
+calc = orders_data.groupby(['ord_date'])["purch_amt"].mean()
+print(calc)
+calc.plot(kind="line")
+
+# Lab4: Write a Pandas program to split the following data frame into groups and calculate monthly purchase amount.Also generate a bar chart based on the result and explain the conclusion.
+# Input:
+df = pd.DataFrame({
+    'ord_no':[70001,70009,70002,70004,70007,70005,70008,70010,70003,70012,70011,70013],
+    'purch_amt':[150.5,270.65,65.26,110.5,948.5,2400.6,5760,1983.43,2480.4,250.45,75.29,3045.6],
+    'ord_date':['05-10-2012','09-10-2012','05-10-2012','08-17-2012','10-09-2012','07-27-2012','10-09-2012','10-10-2012','10-10-2012','06-17-2012','07-08-2012','04-25-2012'],
+    'customer_id':[3001,3001,3005,3001,3005,3001,3005,3001,3005,3001,3005,3005],
+    'salesman_id': [5002,5005,5001,5003,5002,5001,5001,5006,5003,5002,5007,5001]
+})
+
+# Output:
+print("Original DataFrame:")
+print(orders_data)
+print("\nMonthly purchase amount:")
+calc = orders_data.groupby(['customer_id'])["purch_amt"].agg(['mean','min','max'])
+print(calc)
+calc.plot(kind="bar")
+
+# ChatGPT Exercise
+# Scenario:Analyzing E-commerce Customer Behavior
+# Suppose you work for an e-commerce company, and you have a dataset containing information about customer behavior on your website. The dataset includes data on customer visits, product views, purchases, and more. You want to perform data analysis like Calculate the total number of unique customers,Calculate the total number of visits,Calculate the average number of products viewed per visit,Identify the most viewed product,Calculate the total revenue, Visualize the daily visit trend using Pandas to gain insights into customer behavior.
+# Further, you need to get some inference out of the chart.
+# Create a ChatGPT prompt to generate the code for this scenario. Based on the code generated, ask ChatGPT to give the conclusion/inference.
+# Note. You can provide the data to ChatGPT in the form of a list or dictionary or ask it to use sample data.
+
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Sample dataset
+data = {
+    'customer_id': [1, 2, 1, 3, 2, 4, 5, 1, 3, 4, 2, 5],
+    'visit_id': [101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112],
+    'product_id': [201, 202, 203, 204, 205, 206, 207, 208, 209, 210, 211, 212],
+    'viewed_products': [[201, 202], [203, 204, 205], [206], [207, 208, 209], [210], [211, 212], [213], [214, 215], [216, 217], [218], [219], [220]],
+    'purchase_amount': [150.5, 270.65, 65.26, 110.5, 948.5, 2400.6, 5760, 1983.43, 2480.4, 250.45, 75.29, 3045.6],
+    'visit_date': ['2023-01-01', '2023-01-02', '2023-01-01', '2023-01-03', '2023-01-02', '2023-01-04', '2023-01-05', '2023-01-03', '2023-01-06', '2023-01-04', '2023-01-05', '2023-01-06']
+}
+
+df = pd.DataFrame(data)
+df['visit_date'] = pd.to_datetime(df['visit_date'])
+
+# Calculate the total number of unique customers
+total_unique_customers = df['customer_id'].nunique()
+print("Total number of unique customers:", total_unique_customers)
+
+# Calculate the total number of visits
+total_visits = df['visit_id'].nunique()
+print("Total number of visits:", total_visits)
+
+# Calculate the average number of products viewed per visit
+df['num_viewed_products'] = df['viewed_products'].apply(len)
+average_products_viewed_per_visit = df['num_viewed_products'].mean()
+print("Average number of products viewed per visit:", average_products_viewed_per_visit)
+
+# Identify the most viewed product
+all_viewed_products = [item for sublist in df['viewed_products'] for item in sublist]
+most_viewed_product = pd.Series(all_viewed_products).value_counts().idxmax()
+print("Most viewed product:", most_viewed_product)
+
+# Calculate the total revenue
+total_revenue = df['purchase_amount'].sum()
+print("Total revenue:", total_revenue)
+
+# Visualize the daily visit trend
+daily_visits = df.groupby('visit_date')['visit_id'].count()
+
+# Plot the result
+plt.figure(figsize=(10, 5))
+daily_visits.plot(kind='line', marker='o')
+plt.title('Daily Visit Trend')
+plt.xlabel('Date')
+plt.ylabel('Number of Visits')
+plt.grid(True)
+plt.show()
+
+# Conclusion:
+1. Total Number of Unique Customers:
+    The total number of unique customers is 5. This indicates that 5 distinct customers visited the e-commerce website during the period covered by the dataset.
+2. Total Number of Visits:
+    The total number of visits is 12. This means there were 12 separate visits to the website.
+3. Average Number of Products Viewed per Visit:
+    The average number of products viewed per visit is approximately 2.08. This suggests that, on average, each visit included views of around 2 products.
+4. Most Viewed Product:
+    The most viewed product is product ID 201. This product had the highest number of views across all visits.
+5. Total Revenue:
+    The total revenue generated is $18,791.68. This is the sum of all purchase amounts during the period.
+6. Daily Visit Trend Visualization:
+    The line chart shows the daily visit trend, with the number of visits plotted against the dates.
