@@ -1,0 +1,93 @@
+# Lab1: Write a Pandas program to create a Pivot table and find the total sale amount region wise, manager wise, sales man wise.
+# Input:Download the file  salesdata.csv From LMS
+import pandas as pd
+df=pd.read_csv("salesdata.csv")
+#Pivot table
+pivot_table=pd.pivot_table(df,index=["Region","Manager","SalesMan"],values="Sale_amt",aggfunc="sum")
+print(pivot_table)
+
+# Lab2: Write a Pandas program to create a Pivot table and find the item wise unit sold.
+# Input:Download the file
+# salesdata.csv From LMS
+import pandas as pd
+df=pd.read_csv("salesdata.csv")
+# Pivot table
+pivot_table = df.pivot_table(index=["Item"], values="Sale_amt", aggfunc="count")
+print(pivot_table)
+
+# Lab3: Write a Pandas program to create a Pivot table and find the region wise, item wise unit sold.
+# Input:Download the file
+# salesdata.csv From LMS
+import pandas as pd
+df=pd.read_csv("salesdata.csv")
+# Pivot table
+pivot_table = df.pivot_table(index=['Region','Item'], values='Sale_amt', aggfunc='count')
+print(pivot_table)
+
+# Lab4: Write a Pandas program to create a Pivot table and count the manager wise sale and mean value of sale amount.
+# Input:Download the file 
+# salesdata.csv From LMS
+import pandas as pd
+df=pd.read_csv("salesdata.csv")
+# Pivot table
+pivot_table = df.pivot_table(index='Manager', values='Sale_amt', aggfunc=['mean', 'count'])
+print(pivot_table)
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# ChatGPT Exercise
+# Scenario:Analyzing Sales Data with a Pivot Table
+# Suppose you work for a retail company, and you have a dataset containing sales data. The data includes information about sales transactions, products, and salespeople. You want to create a pivot table to summarize sales by product and salesperson like Calculate the total sales for each product,Calculate the total sales for each salesperson,Identify the top-selling product and salesperson.
+# Create a ChatGPT prompt to generate the code for this scenario. Based on the code generated, ask ChatGPT to give the conclusion/inference. 
+# Note. You can provide the data to ChatGPT in the form of a list or dictionary or ask it to use sample data.
+
+import pandas as pd
+
+# Sample dataset
+sales_data = [
+    {'product': 'Laptop', 'salesperson': 'Alice', 'amount': 1200},
+    {'product': 'Laptop', 'salesperson': 'Bob', 'amount': 1300},
+    {'product': 'Tablet', 'salesperson': 'Alice', 'amount': 600},
+    {'product': 'Tablet', 'salesperson': 'Bob', 'amount': 700},
+    {'product': 'Smartphone', 'salesperson': 'Alice', 'amount': 800},
+    {'product': 'Smartphone', 'salesperson': 'Bob', 'amount': 900},
+    {'product': 'Laptop', 'salesperson': 'Charlie', 'amount': 1400},
+    {'product': 'Tablet', 'salesperson': 'Charlie', 'amount': 500},
+    {'product': 'Smartphone', 'salesperson': 'Charlie', 'amount': 700},
+]
+
+# Create DataFrame
+df = pd.DataFrame(sales_data)
+
+# Create pivot table
+pivot_table = pd.pivot_table(df, values='amount', index='product', columns='salesperson', aggfunc='sum', margins=True, margins_name='Total', fill_value=0)
+
+# Total sales for each product
+total_sales_by_product = df.groupby('product')['amount'].sum()
+
+# Total sales for each salesperson
+total_sales_by_salesperson = df.groupby('salesperson')['amount'].sum()
+
+# Identify top-selling product
+top_selling_product = total_sales_by_product.idxmax()
+top_selling_product_amount = total_sales_by_product.max()
+
+# Identify top-selling salesperson
+top_selling_salesperson = total_sales_by_salesperson.idxmax()
+top_selling_salesperson_amount = total_sales_by_salesperson.max()
+
+# Display results
+print("Pivot Table:")
+print(pivot_table)
+print("\nTotal Sales by Product:")
+print(total_sales_by_product)
+print("\nTotal Sales by Salesperson:")
+print(total_sales_by_salesperson)
+print(f"\nTop-Selling Product: {top_selling_product} with sales of {top_selling_product_amount}")
+print(f"Top-Selling Salesperson: {top_selling_salesperson} with sales of {top_selling_salesperson_amount}")
+
+# Conclusion/Inference:
+1. Pivot Table: The pivot table provides a clear breakdown of the total sales for each product by each salesperson, along with the overall total sales for each category.
+2. Total Sales by Product: Laptops are the highest-selling product with total sales of 3900. Smartphones have total sales of 2400. Tablets have total sales of 1800.
+3. Total Sales by Salesperson: Bob is the top-selling salesperson with total sales of 2900. Both Alice and Charlie have total sales of 2600 each, indicating strong performance but slightly behind Bob.
+4. Top-Selling Product: The Laptop stands out as the most popular product, contributing significantly to the total sales.
+5. Top-Selling Salesperson: Bob leads in individual sales performance, making him the top contributor among the sales team. These insights can help in understanding product popularity, salesperson performance, and guiding future sales strategies.
