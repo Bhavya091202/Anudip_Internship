@@ -1,7 +1,7 @@
 create database if not exists Anudip_Internship;
 show databases;
 use anudip_internship;
-
+-- select * from employees;
 create table if not exists products(
 	id int unique,
     Name varchar(30),
