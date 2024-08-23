@@ -30,7 +30,7 @@ create table if not exists Student(
 
 create table if not exists Course(
 CourseID int Primary Key,
-CourseTitle varchar(15),
+CourseTitle varchar(30),
 Credits varchar(30)
 );
 
@@ -98,4 +98,4 @@ create table if not exists Feedback(
 	Feedback varchar(40)
 ); 
 
-drop database StudentManagementSystem;
+-- drop database StudentManagementSystem;
